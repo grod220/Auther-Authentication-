@@ -1,15 +1,31 @@
-'use strict'; 
+'use strict';
 
 var app = require('express')();
 var path = require('path');
+var session = require('express-session');
+
 
 app.use(require('./logging.middleware'));
+
+app.use(session({
+  // this mandatory configuration ensures that session IDs are not predictable
+  secret: 'tongiscool' // or whatever you like
+}));
+
+app.use(function (req, res, next) {
+  console.log(req.session);
+  next();
+});
 
 app.use(require('./request-state.middleware'));
 
 app.use(require('./statics.middleware'));
 
+app.use('/login', require('../api/login.router'));
+
+
 app.use('/api', require('../api/api.router'));
+
 
 var validFrontendRoutes = ['/', '/stories', '/users', '/stories/:id', '/users/:id', '/signup', '/login'];
 var indexPath = path.join(__dirname, '..', '..', 'public', 'index.html');
