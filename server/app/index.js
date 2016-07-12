@@ -23,6 +23,7 @@ app.use(require('./statics.middleware'));
 
 app.use('/login', require('../api/login.router'));
 
+app.use('/logout', require('../api/logout.router'));
 
 app.use('/api', require('../api/api.router'));
 
