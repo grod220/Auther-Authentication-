@@ -1,14 +1,11 @@
-app.factory('AuthFactory', function ($http, $log, $state) {
-  var currentUser;
+app.factory('AuthFactory', function ($http, $log, $state, $rootScope) {
   return {
-    currentUser: function () {
-      return currentUser;
-    },
+
     signup: function (email, password) {
       $http.post('/api/users', {email: email, password: password})
       .then(function (res) {
-        currentUser = res.data.id;
-      $state.go('stories');
+        $rootScope.currentUser = res.data;
+        $state.go('stories');
       })
       .catch($log.error);
     },
@@ -16,8 +13,9 @@ app.factory('AuthFactory', function ($http, $log, $state) {
     login: function (email, password) {
       $http.post('/login', {email: email, password: password})
       .then(function (res) {
-        currentUser = res.data.id;
-      $state.go('stories');
+
+        $rootScope.currentUser = res.data;
+        $state.go('stories');
       })
       .catch($log.error);
     }

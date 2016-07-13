@@ -12,7 +12,7 @@ router.post('/', function (req, res, next) {
     if (!user) {
       res.sendStatus(401);
     } else {
-      req.session.userId = user.id;
+      req.session.user = user;
       // res.setStatusCode(204);
       res.json(user);
       // setTimeout(function(){

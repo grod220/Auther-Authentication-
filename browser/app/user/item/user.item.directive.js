@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('userItem', function () {
+app.directive('userItem', function (AuthFactory, $rootScope) {
   return {
     restrict: 'E',
     templateUrl: '/browser/app/user/item/user.item.html',
@@ -26,6 +26,7 @@ app.directive('userItem', function () {
           scope.afterRemove();
         });
       };
+
     }
   }
 });

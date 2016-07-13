@@ -27,7 +27,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   User.create(req.body)
   .then(function (user) {
-    req.session.userId = user.id;
+    req.session.user = user;
     res.status(201).json(user);
   })
   .catch(next);

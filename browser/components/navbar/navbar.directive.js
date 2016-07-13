@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('navbar', function ($state, $location, $http) {
+app.directive('navbar', function ($state, $location, $http, AuthFactory, $rootScope) {
   return {
     restrict: 'E',
     templateUrl: '/browser/components/navbar/navbar.html',
@@ -14,6 +14,8 @@ app.directive('navbar', function ($state, $location, $http) {
         $http.put('/logout')
         .then(function () {
           console.log('the cookies are gone!');
+          $rootScope.currentUser = null;
+          $state.go('home');
         });
       }
     }
